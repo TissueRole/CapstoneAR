@@ -123,7 +123,7 @@
                                 <?php while ($reply = $reply_result->fetch_assoc()): ?>
                                     <li class="list-group-item">
                                         <strong>In Question: 
-                                            <a href="Forum/thread.php?id=<?php echo $reply['question_id']; ?>" class="text-decoration-none">
+                                            <a href="../Forum/thread.php?id=<?php echo $reply['question_id']; ?>" class="text-decoration-none">
                                                 <?php echo htmlspecialchars($reply['title']); ?>
                                             </a>
                                         </strong>
