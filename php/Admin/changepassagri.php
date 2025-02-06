@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_password'])) {
     // Check if any of the fields are empty
     if (empty($current_password) || empty($new_password) || empty($confirm_password)) {
         $password_message = "All fields are required.";
-        header("Location: ../userpage.php?section=settings&message=" . urlencode($password_message));
+        header("Location: ../agriculturistpage.php?section=settings&message=" . urlencode($password_message));
         exit();
     } else {
         $stmt = $conn->prepare("SELECT password FROM users WHERE user_id = ?");
@@ -39,27 +39,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_password'])) {
                     $update_stmt->bind_param("si", $new_hashed_password, $user_id);
                     if ($update_stmt->execute()) {
                         $password_message = "Password updated successfully.";
-                        header("Location: ../userpage.php?section=settings&message=" . urlencode($password_message)); 
+                        header("Location: agriculturistpage.php?section=settings&message=" . urlencode($password_message)); 
                         exit(); 
                     } else {
                         $password_message = "Error updating password: " . $conn->error;
-                        header("Location: ../userpage.php?section=settings&message=" . urlencode($password_message));
+                        header("Location: agriculturistpage.php?section=settings&message=" . urlencode($password_message));
                         exit();
                     }
                     $update_stmt->close();
                 } else {
                     $password_message = "New passwords do not match.";
-                    header("Location: ../userpage.php?section=settings&message=" . urlencode($password_message));
+                    header("Location: agriculturistpage.php?section=settings&message=" . urlencode($password_message));
                     exit();
                 }
             } else {
                 $password_message = "Current password is incorrect.";
-                header("Location: ../userpage.php?section=settings&message=" . urlencode($password_message));
+                header("Location: agriculturistpage.php?section=settings&message=" . urlencode($password_message));
                 exit();
             }
         } else {
             $password_message = "User not found.";
-            header("Location: ../userpage.php?section=settings&message=" . urlencode($password_message));
+            header("Location: agriculturistpage.php?section=settings&message=" . urlencode($password_message));
             exit();
         }
 

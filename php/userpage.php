@@ -16,7 +16,7 @@
         exit();
     }
 
-
+    $password_message = isset($_GET['message']) ? urldecode($_GET['message']) : '';
     $question_sql = "SELECT * FROM questions WHERE user_id = {$_SESSION['user_id']} ORDER BY created_at DESC";
     $question_result = $conn->query($question_sql);
 
@@ -192,6 +192,11 @@
                             </div>
                             <button type="submit" class="btn btn-primary" name="change_password">Change Password</button>
                         </form>
+                        <?php if (isset($password_message)): ?>
+                            <div class="alert alert-info mt-3">
+                                <?php echo $password_message; ?>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </div>
             <?php elseif ($active_section == 'favorites'): ?>
@@ -236,5 +241,6 @@
             <?php endif; ?>
         </div>
     </div>
+
 </body>
 </html>

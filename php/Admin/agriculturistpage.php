@@ -26,9 +26,9 @@
                   WHERE r.user_id = {$_SESSION['user_id']} ORDER BY r.created_at DESC";
     $reply_result = $conn->query($reply_sql);
 
-
+    
     $active_section = isset($_GET['section']) ? $_GET['section'] : 'profile';
-
+    $password_message = isset($_GET['message']) ? urldecode($_GET['message']) : '';
     if (isset($_POST['add_plant'])) {
         $plant_name = $_POST['plant_name'];
         $plant_type = $_POST['plant_type'];
@@ -138,13 +138,13 @@
                     </div>
                 </div>
             <?php elseif ($active_section == 'settings'): ?>
-                <div class="card shadow-sm mb-4">
+                <div class="card shadow-sm mb-4 settings">
                     <div class="card-header bg-success text-white">
                         <h5>Account Settings</h5>
                     </div>
                     <div class="card-body">
                         <h5>Update Profile</h5>
-                        <form action="User/editprofile.php" method="POST">
+                        <form action="editagri.php" method="POST">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Name</label>
                                 <input type="text" class="form-control" id="name" name="name" value="<?php echo htmlspecialchars($user['name']); ?>" required>
@@ -157,7 +157,7 @@
                         </form>
                         <hr>
                         <h5>Change Password</h5>
-                        <form action="User/changepassword.php" method="POST">
+                        <form action="changepassagri.php" method="POST">
                             <div class="mb-3">
                                 <label for="current_password" class="form-label">Current Password</label>
                                 <input type="password" class="form-control" id="current_password" name="current_password" required>
@@ -172,6 +172,11 @@
                             </div>
                             <button type="submit" class="btn btn-primary" name="change_password">Change Password</button>
                         </form>
+                        <?php if (isset($password_message)): ?>
+                            <div class="alert alert-info mt-3">
+                                <?php echo $password_message; ?>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </div>
             <?php elseif ($active_section == 'add-plant'): ?>
